@@ -43,11 +43,30 @@ class HashTable:
                     current_node.value = value
                     return
                 current_node = current_node.next
-
+            # if bucket is not empty and key does not already exist, add new node to bucket at the end of the list
             new_node = self.Node(key,value)
             current_node.next = new_node;
             self.buckets[i] = new_node
             self.size+=1
+
+
+    def search(self, key):
+        i = self.hash(key)
+
+        current_node = self.buckets[i];
+
+        # iterates through linked list looking for key
+        while current_node:
+            # if current node's key matches searched key, return current node's value 
+            if current_node.key == key:
+                return current_node.value
+            
+            #moves pointer to next node in linked list
+            current_node= current_node.next
+
+        # returns -1 if not found
+        return -1; 
+
 
 
                 
