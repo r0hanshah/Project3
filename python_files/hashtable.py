@@ -10,6 +10,8 @@ class HashTable:
             self.value = value
             self.next = None
 
+
+
     def __init__(self):
         # inital cap will be 10, will update as needed
         self.capacity = 10;
@@ -23,21 +25,21 @@ class HashTable:
     def is_empty(self):
         return self.size == 0
     
-    def hash(self, key):
+    def get_index(self, key):
         return hash(key) % self.capacity; # this will give us the index of the key
 
     def insert(self, key, value):
-        i = self.hash(key); 
+        bucketIndex = self.get_index(key); 
     
         # if the bucket is empty, insert the key value pair
-        if self.buckets[i] == 0:
-            self.buckets[i] = self.Node(key, value)
+        if self.buckets[bucketIndex] == 0:
+            self.buckets[bucketIndex] = self.Node(key, value)
             self.size += 1
 
         # if the bucket is not empty, we need to check if the key already exists
-        if (self.buckets[i] != 0):
+        if (self.buckets[bucketIndex] != 0):
             # if the key already exists, add node to the end of the linked list
-            current_node = self.buckets[i]
+            current_node = self.buckets[bucketIndex]
             while current_node:
                 if current_node.key == key:
                     current_node.value = value
@@ -46,14 +48,14 @@ class HashTable:
             # if bucket is not empty and key does not already exist, add new node to bucket at the end of the list
             new_node = self.Node(key,value)
             current_node.next = new_node;
-            self.buckets[i] = new_node
+            self.buckets[bucketIndex] = new_node
             self.size+=1
 
 
     def search(self, key):
-        i = self.hash(key)
+        bucketIndex = self.get_index(key)
 
-        current_node = self.buckets[i];
+        current_node = self.buckets[bucketIndex];
 
         # iterates through linked list looking for key
         while current_node:
@@ -67,10 +69,39 @@ class HashTable:
         # returns -1 if not found
         return -1; 
 
+    def delete(self,key):
+        bucketIndex = self.get_index(key);
+
+        current_node = self.buckets[bucketIndex];
+        previous_node = None;
+
+        while current_node:
+            # delete current node if key found
+            if current_node.key == key:
+
+                # if previous node exists
+                if(previous_node):
+                    previous_node.next = current_node.next
+                # if no nodes in bucket
+                else:
+                    self.buckets[bucketIndex] = None;
+            
+                #decrements size
+                self.size -= 1
+                return
+            
+
+            previous_node = current_node
+            current_node = current_node.next
+
+
+        # returns -1 if node not found
+        return -1;
+
 
 
                 
     
 
 
-    
+    #sources: https://www.geeksforgeeks.org/separate-chaining-collision-handling-technique-in-hashing/
