@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,36 +12,43 @@
             background-color: #f0f0f0;
             color: #333;
         }
+
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
             padding: 1em 0;
         }
+
         main {
             margin: 2em;
         }
+
         #search-section {
             background-color: #fff;
             padding: 2em;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: all 0.3s ease;
         }
+
         #search-section:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 20px 60px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #39853d;
         }
+
         footer {
             text-align: center;
             padding: 1em 0;
@@ -48,71 +56,80 @@
             color: white;
         }
 
-        /* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
 
-input:checked + .slider {
-    background-color: #4CAF50;
-}
+        input:checked+.slider {
+            background-color: #4CAF50;
+        }
 
-input:focus + .slider {
-    background-color: #4CAF50;
-}
+        input:focus+.slider {
+            box-shadow: 0 0 1px #4CAF50;
+        }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+        .slider.round:before {
+            border-radius: 50%;
+        }
 
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <h1>TravelSmart</h1>
@@ -123,46 +140,44 @@ input:checked + .slider:before {
         <section id="search-section">
             <label for="search-input"><strong>Enter your travel preferences:</strong></label><br>
             <!--<input type="text" id="search-input" placeholder="Country, Population, Language, etc." style="padding: 10px; margin-top: 10px;">-->
-    
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-    <!-- Insert link to CSS framework and custom styles here -->
-    <label for="search-input">Select Continent</label><br>
-    <select name="cars" id="continent" placeholder="Select Language" style="padding: 10px; margin-top: 10px;">
-        <option value="northAmerica">North America</option>
-        <option value="southAmerica">South America</option>
-        <option value="europe">Europe</option>
-        <option value="africa">Africa</option>
-        <option value="asia">Asia</option>
-        <option value="oceania">Oceania </option>
-    </select>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <!-- Insert link to CSS framework and custom styles here -->
+                    <label for="search-input">Select Continent</label><br>
+                    <select name="cars" id="continent" placeholder="Select Language"
+                        style="padding: 10px; margin-top: 10px;">
+                        <option value="northAmerica">North America</option>
+                        <option value="southAmerica">South America</option>
+                        <option value="europe">Europe</option>
+                        <option value="africa">Africa</option>
+                        <option value="asia">Asia</option>
+                        <option value="oceania">Oceania </option>
+                    </select>
                 </div>
-            </div>
 
-                <div class="col-sm-6">
-                          <!-- Insert link to CSS framework and custom styles here -->
-        <select name="cars" id="cars" placeholder="Select city size"  style="padding: 10px; margin-top: 10px;">
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-        </select>  
+                <div class="grid-item">
+                    <label for="search-input">Select City Size</label><br>
+                    <select name="cars" id="cars" placeholder="Select city size"
+                        style="padding: 10px; margin-top: 10px;">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
                 </div>
-                <label for="search-input"><strong>English speaking country:</strong></label><br>
-                <div class="col-sm-6">
+                <!-- Insert link to CSS framework and custom styles here -->
+                <div class="grid-item">
+                    <label for="search-input">English Speaking Country?</label><br>
                     <!-- Insert link to CSS framework and custom styles here -->
                     <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
-                      </label>
+                    </label>
                 </div>
-
-
-        
-        <br>
-        </div>
-        <button id="search-button" style="margin-top: 10px;">Search</button>
-    </section>
+                <br>
+            </div>
+            <!-- Search button should run some function that runs an algorithm and returns a city's name, population, and language -->
+            <button id="search-button" style="margin-top: 10px;">Search</button>
+        </section>
         <!-- Additional sections for suggestions and results can be dynamically loaded here -->
     </main>
 
@@ -172,4 +187,5 @@ input:checked + .slider:before {
 
     <!-- Insert JavaScript files here -->
 </body>
+
 </html>
