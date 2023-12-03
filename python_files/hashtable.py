@@ -17,6 +17,7 @@ class HashTable:
         self.capacity = 10;
         self.size = 0;
         self.buckets = [0] * self.capacity
+        self.load_factor = 0.75
 
 
     def __len__(self):
@@ -29,6 +30,11 @@ class HashTable:
         return hash(key) % self.capacity; # this will give us the index of the key
 
     def insert(self, key, value):
+
+        # if load factor is greater than 0.75, double the capacity
+        if self.size/self.capacity > self.load_factor:
+            self.resizeAndHash()
+
         bucketIndex = self.get_index(key); 
     
         # if the bucket is empty, insert the key value pair
@@ -84,7 +90,7 @@ class HashTable:
                     previous_node.next = current_node.next
                 # if no nodes in bucket
                 else:
-                    self.buckets[bucketIndex] = None;
+                    self.buckets[bucketIndex] = None
             
                 #decrements size
                 self.size -= 1
@@ -98,6 +104,23 @@ class HashTable:
         # returns -1 if node not found
         return -1;
 
+
+    def resizeAndHash(self):
+        newCapacity = self.capacity * 2;
+        newBuckets = [0] * newCapacity;
+
+        for i in range(self.capacity):
+            current = self.buckets[i]
+            while current:
+                bucketIndex = hash(current.key) % newCapacity
+                newNode = self.Node(current.key, current.value)
+                newNode.next = newBuckets[bucketIndex]
+                newBuckets[bucketIndex] = newNode
+                current = current.next
+
+        self.buckets = newBuckets;
+        self.capacity = newCapacity;
+                
 
 
                 
