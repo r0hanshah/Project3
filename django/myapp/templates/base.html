@@ -119,12 +119,12 @@
         .grid-container {
             display: grid;
             grid-template-columns: auto auto auto;
-            padding: 10px;
+            padding: 0px;
         }
 
         .grid-item {
             background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
+            padding: 50px;
             text-align: center;
         }
     </style>
@@ -144,6 +144,7 @@
                 <div class="grid-item">
                     <!-- Insert link to CSS framework and custom styles here -->
                     <label for="search-input">Select Continent</label><br>
+                    <br>
                     <select name="cars" id="continent" placeholder="Select Language"
                         style="padding: 10px; margin-top: 10px;">
                         <option value="northAmerica">North America</option>
@@ -157,6 +158,7 @@
 
                 <div class="grid-item">
                     <label for="search-input">Select City Size</label><br>
+                    <br>
                     <select name="cars" id="cars" placeholder="Select city size"
                         style="padding: 10px; margin-top: 10px;">
                         <option value="small">Small</option>
@@ -166,13 +168,14 @@
                 </div>
                 <!-- Insert link to CSS framework and custom styles here -->
                 <div class="grid-item">
-                    <label for="search-input">English Speaking Country?</label><br>
+                    <label for="search-input">Is capital?</label><br>
                     <!-- Insert link to CSS framework and custom styles here -->
+                    <br>
                     <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                </div>
+                    </div>
                 <br>
             </div>
             <!-- Search button should run some function that runs an algorithm and returns a city's name, population, and language -->
@@ -184,8 +187,5 @@
     <footer>
         <p>&copy; 2023 Fall DSA - The Rizzlers </p>
     </footer>
-
-    <!-- Insert JavaScript files here -->
 </body>
-
 </html>
