@@ -194,11 +194,14 @@
         <ul>
             {% for city in data.results %}
                 <li>
-                    <strong>{{ city.name }}</strong><br>
+                    <strong>ID: {{ city.city_id }}</strong><br>
+                    Name: {{ city.name }}<br>
+                    Country: {{ city.country }}<br>
+                    Population: {{ city.population }}<br>
                     Continent: {{ city.continent }}<br>
-                    Native Language: {{ city.nativeLanguage }}<br>
-                    Coordinates: {{ city.coordinates }}<br>
-                    <!-- Add other fields as needed -->
+                    Flag: {{ city.flag }}<br>
+                    Capital: {{ city.is_capital|yesno:"Yes,No" }}<br>
+                    Size: {{ city.size }}<br>
                 </li>
             {% endfor %}
         </ul>
