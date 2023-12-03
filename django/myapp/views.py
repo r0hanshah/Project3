@@ -4,7 +4,7 @@ from .citys_util import parse_city_data  # Make sure this is correctly imported
 
 
 def home(request):
-    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=10&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
+    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=250&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
     headers = {
         'X-Parse-Application-Id': 'UYc71G7r391fHhOVopWNjVyUcSAuI3seeCzw0Kn5',
         'X-Parse-REST-API-Key': 'mDIkA4mPqLMhR9oyeabWn323MOcXpdAUAHh2cuNi'
