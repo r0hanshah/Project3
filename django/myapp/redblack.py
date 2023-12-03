@@ -116,5 +116,15 @@ class RedBlackTree:
                     self.rightRotation(node.parent.parent)
         self.root.color = False
 
-
-
+    def search(self, key):
+        # returns the node with the key
+        # perform in-order traversal
+        current = self.root
+        while current:
+            if key == current.key:
+                return current
+            elif key < current.key:
+                current = current.left
+            else:
+                current = current.right
+        return None
