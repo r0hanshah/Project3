@@ -12,6 +12,17 @@
             background-color: #f0f0f0;
             color: #333;
         }
+        emoji {
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 10em; 
+            text-align: right;
+        }
+        results {
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: left;
+        }
 
         header {
             background-color: #4CAF50;
@@ -168,7 +179,7 @@
                 </div>
                 <!-- Insert link to CSS framework and custom styles here -->
                 <div class="grid-item">
-                    <label for="search-input">Is capital?</label><br>
+                    <label for="search-input">Is Capital?</label><br>
                     <!-- Insert link to CSS framework and custom styles here -->
                     <br>
                     <label class="switch">
@@ -180,8 +191,28 @@
             </div>
             <!-- Search button should run some function that runs an algorithm and returns a city's name, population, and language -->
             <button id="search-button" style="margin-top: 10px;">Search</button>
-        </section>
+        </section><br>
         <!-- Additional sections for suggestions and results can be dynamically loaded here -->
+        <section id="search-section">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div id ="emoji">
+                        <emoji>🇮🇳</emoji>
+                    </div>
+                </div>
+
+                <div class="grid-item">
+                    <results> City Recommendation: </results><br>
+                    <results>Country: </results><br>
+                    <results>Continent </results><br>
+                    <results>City Population: </results><br>
+                    <results>City Size: </results><br>
+                    <results>Is City Capital?: </results><br>                   
+
+                </div>
+            </div>
+
+        </section>
     </main>
 
     <footer>
