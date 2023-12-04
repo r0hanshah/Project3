@@ -85,10 +85,10 @@ class RedBlackTree:
 
     
     def balance(self, node):
-        while node.parent.color == True and node != self.root:
+        while node != self.root and node.parent is not None and node.parent.color == True:
             if node.parent == node.parent.parent.right:
                 uncle = node.parent.parent.left
-                if uncle.color == True:
+                if uncle and uncle.color == True:
                     node.parent.color = False
                     uncle.color = False
                     node.parent.parent.color = True
@@ -98,11 +98,12 @@ class RedBlackTree:
                         node = node.parent
                         self.rightRotation(node)
                     node.parent.color = False
-                    node.parent.parent.color = True
-                    self.leftRotation(node.parent.parent)
+                    if node.parent.parent is not None:
+                        node.parent.parent.color = True
+                        self.leftRotation(node.parent.parent)
             else:
                 uncle = node.parent.parent.right
-                if uncle.color == True:
+                if uncle and uncle.color == True:
                     node.parent.color = False
                     uncle.color = False
                     node.parent.parent.color = True
@@ -112,9 +113,11 @@ class RedBlackTree:
                         node = node.parent
                         self.leftRotation(node)
                     node.parent.color = False
-                    node.parent.parent.color = True
-                    self.rightRotation(node.parent.parent)
+                    if node.parent.parent is not None:
+                        node.parent.parent.color = True
+                        self.rightRotation(node.parent.parent)
         self.root.color = False
+
 
     def search(self, key):
         # returns the node with the key

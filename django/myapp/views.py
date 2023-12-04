@@ -32,24 +32,24 @@ def home(request):
     else:
         return render(request, "base.html", {'data': {'error': 'Failed to fetch data'}})
 
-# def get_recommendation(request):
-#     # Extract criteria from the request
-#     continent = request.GET.get('continent')
-#     size = request.GET.get('size')
-#     is_capital = request.GET.get('is_capital') == 'true'
+def get_recommendation(request):
+    # Extract criteria from the request
+    continent = request.GET.get('continent')
+    size = request.GET.get('size')
+    is_capital = request.GET.get('is_capital') == 'true'
 
-#     # Retrieve from session or global storage
-#     rb_tree = request.session.get('rb_tree')
-#     hash_table = request.session.get('hash_table')
+    # Retrieve from session or global storage
+    rb_tree = request.session.get('rb_tree')
+    hash_table = request.session.get('hash_table')
 
-#     if rb_tree is None or hash_table is None:
-#         return JsonResponse({'error': 'Data structures not initialized'}, status=500)
+    if rb_tree is None or hash_table is None:
+        return JsonResponse({'error': 'Data structures not initialized'}, status=500)
 
-#     algorithm = RecommendationAlgorithm(request.user, None, None, rb_tree, hash_table)
-#     algorithm.set_criteria(continent, size, is_capital)
-#     recommendations = algorithm.get_recommendations()
+    algorithm = RecommendationAlgorithm(request.user, None, None, rb_tree, hash_table)
+    algorithm.set_criteria(continent, size, is_capital)
+    recommendations = algorithm.get_recommendations()
 
-#     if recommendations:
-#         return JsonResponse(recommendations)
-#     else:
-#         return JsonResponse({'error': 'No matching city found'}, status=404)
+    if recommendations:
+        return JsonResponse(recommendations)
+    else:
+        return JsonResponse({'error': 'No matching city found'}, status=404)
