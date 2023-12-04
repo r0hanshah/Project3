@@ -16,34 +16,43 @@ class RecommendationAlgorithm():
         }
 
     def get_recommendations(self):
-        city_key = None
-        for city in self.city_list:
-            if (city.size == self.criteria['size'] and 
-                city.continent == self.criteria['continent'] and 
-                city.is_capital == self.criteria['is_capital']):
-                city_key = f"{city.name}-{city.country}"
-                break
+        city_key = "None"
+        print("criteria", self.criteria)
+        print("city", self.city_list[0])
+        print(self.city_list[0].continent)
+        print(self.city_list[0].size)
+        print(self.city_list[0].is_capital)
+        # if is_capital is false, set the value to no
 
+        for city in self.city_list:
+            if self.criteria['continent'] == city.continent.lower() and self.criteria['size'] == city.size.lower() and self.criteria['is_capital'] == city.is_capital:
+                city_key = f"{city.city_id}"
+                break
+            else:
+                continue
+
+        print(city_key)
         if city_key:
-            # Measure time for Red-Black Tree search
-            start_time = time.time()
+            # Measure time for Red-Black Tree search in milliseconds
+            start_time = time.perf_counter()
             rb_tree_result = self.tree.search(city_key)
-            rb_tree_time = time.time() - start_time
+            rb_tree_time = (time.perf_counter() - start_time) * 1000  # Convert to milliseconds
 
             # Measure time for Hash Table search
-            start_time = time.time()
+            start_time = time.perf_counter()
             hash_table_result = self.hash_table.search(city_key)
-            hash_table_time = time.time() - start_time
+            hash_table_time = (time.perf_counter() - start_time) * 1000  # Convert to milliseconds
 
-            return {
-                'rb_tree': {
-                    'time': rb_tree_time,
-                    'result': rb_tree_result
-                },
-                'hash_table': {
-                    'time': hash_table_time,
-                    'result': hash_table_result
+            if rb_tree_result and hash_table_result:
+                return {
+                    'rb_tree': {
+                    'time': f"{rb_tree_time:.6f} ms",
+                    'result': rb_tree_result.value.name
+                    },
+                    'hash_table': {
+                        'time': f"{hash_table_time:.6f} ms",
+                        'result': hash_table_result.name
+                    }
                 }
-            }
         else:
-            return None
+            return {"sorry, no city found" : "please try again"}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+import random
 from .citys_util import parse_city_data  # Make sure this is correctly imported
 from .citys_util import load_data_into_structures  # Make sure this is correctly imported
 from .redblack import RedBlackTree
@@ -9,7 +10,7 @@ from .recommendation_algorithm import RecommendationAlgorithm
 
 
 def home(request):
-    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=250&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
+    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=1000&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
     headers = {
         'X-Parse-Application-Id': 'UYc71G7r391fHhOVopWNjVyUcSAuI3seeCzw0Kn5',
         'X-Parse-REST-API-Key': 'mDIkA4mPqLMhR9oyeabWn323MOcXpdAUAHh2cuNi'
@@ -24,6 +25,8 @@ def home(request):
         hash_table = HashTable()
         load_data_into_structures(cities, rb_tree, hash_table)
 
+        # randomize the list of cities
+        random.shuffle(cities)
         # create an instance of the recommendation algorithm
         recommendation_algorithm = RecommendationAlgorithm(request.user, cities, None, rb_tree, hash_table)
         # Pass the list of City objects to the template
@@ -38,13 +41,13 @@ def get_recommendation(request):
     is_capital = request.GET.get('is_capital') == 'true'
 
     global recommendation_algorithm
-    if recommendation_algorithm is None:
-        return JsonResponse({'error': 'Recommendation algorithm not initialized'}, status=500)
 
     recommendation_algorithm.set_criteria(continent, size, is_capital)
     recommendations = recommendation_algorithm.get_recommendations()
 
+    
     if recommendations:
         return JsonResponse(recommendations)
     else:
-        return JsonResponse({'error': 'No matching city found'}, status=404)
+        return JsonResponse({"sorry, no city found" : "please try again"})
+    

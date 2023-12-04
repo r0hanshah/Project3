@@ -159,7 +159,7 @@
                 <div class="grid-item">
                     <label for="search-input">Select City Size</label><br>
                     <br>
-                    <select name="cars" id="cars" placeholder="Select city size"
+                    <select name="cars" id="size" placeholder="Select city size"
                         style="padding: 10px; margin-top: 10px;">
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
@@ -189,7 +189,7 @@
     </footer>
 
     <!-- Insert JavaScript files here -->
-    <h1>API Data</h1>
+    <!-- <h1>API Data</h1>
     {% if data.results %}
         <ul>
             {% for city in data.results %}
@@ -207,12 +207,12 @@
         </ul>
     {% else %}
         <p>Error: {{ data.error }}</p>
-    {% endif %}
+    {% endif %} -->
 
     <script>
         document.getElementById('search-button').addEventListener('click', function() {
             var continent = document.getElementById('continent').value;
-            var size = document.getElementById('cars').value; // Make sure this is the correct ID for size
+            var size = document.getElementById('size').value; // Make sure this is the correct ID for size
             var isCapital = document.querySelector('#search-section input[type="checkbox"]').checked;
             console.log(continent, size, isCapital); // check values
             // Make a GET request to the API
@@ -224,7 +224,7 @@
                     // Handle the response - update the page with the received data
                     console.log(response);
                     // Example: Update an element with ID 'results' with the response data
-                    document.getElementById('results').innerText = JSON.stringify(response, null, 2);
+                    //document.getElementById('results').innerText = JSON.stringify(response, null, 2);
                 } else {
                     console.error('No matching city found');
                 }

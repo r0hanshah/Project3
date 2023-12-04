@@ -15,17 +15,17 @@ class City:
     def __repr__(self):
         return f"City(ID: {self.city_id}, Name: {self.name}, Country: {self.country}, Size: {self.size})"
 
-    def to_dict(self):
-            return {
-                "city_id": self.city_id,
-                "name": self.name,
-                "country": self.country,
-                "population": self.population,
-                "continent": self.continent,
-                "flag": self.flag,
-                "is_capital": self.is_capital,
-                "size": self.size
-            }
+def to_dict(self):
+        return {
+            "city_id": self.city_id,
+            "name": self.name,
+            "country": self.country,
+            "population": self.population,
+            "continent": self.continent,
+            "flag": self.flag,
+            "is_capital": self.is_capital,
+            "size": self.size
+        }
 
 def fetch_data_from_api(url, app_id, rest_api_key):
     headers = {
