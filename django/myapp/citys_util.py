@@ -65,4 +65,4 @@ def load_data_into_structures(cities, rb_tree, hash_table):
     for city in cities:
         key = f"{city.name}-{city.country}"  # Unique key, adjust as needed
         rb_tree.insert(key, city)
-        hash_table[key] = city
+        hash_table.insert(key, city)
