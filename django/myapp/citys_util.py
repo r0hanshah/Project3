@@ -1,4 +1,5 @@
 import requests
+import json
 
 class City:
     def __init__(self, city_id, name, country, population, continent, flag, is_capital, size):
@@ -13,6 +14,18 @@ class City:
 
     def __repr__(self):
         return f"City(ID: {self.city_id}, Name: {self.name}, Country: {self.country}, Size: {self.size})"
+
+def to_dict(self):
+        return {
+            "city_id": self.city_id,
+            "name": self.name,
+            "country": self.country,
+            "population": self.population,
+            "continent": self.continent,
+            "flag": self.flag,
+            "is_capital": self.is_capital,
+            "size": self.size
+        }
 
 def fetch_data_from_api(url, app_id, rest_api_key):
     headers = {
@@ -31,23 +44,21 @@ def parse_city_data(api_data):
     for item in api_data['results']:
         city_id = item.get('cityId')
         name = item.get('name')
-        population = item.get('population')
 
         country_data = item.get('country')
         if country_data:
-            # Assuming 'native' is the name of the country
-            country = country_data.get('native', None) 
+            country = country_data.get('name', None)
             capital = country_data.get('capital', None)
             flag = country_data.get('emoji', None)
             is_capital = (name == capital)
-        
-            # Extracting continent name
-            continent_data = country_data.get('continent')
-            continent = continent_data['name'] if continent_data else None
+
+            # Extracting continent name from the continent pointer object
+            continent_pointer = country_data.get('continent')
+            continent = continent_pointer['name'] if continent_pointer else None
         else:
             country, capital, continent, flag, is_capital = None, None, None, None, False
+        population = item.get("population")
 
-        # Determine city size based on population
         size = "Large" if population >= 600000 else "Medium" if population > 100000 else "Small"
 
         city = City(city_id, name, country, population, continent, flag, is_capital, size)
@@ -56,8 +67,11 @@ def parse_city_data(api_data):
 
 
 
+
+
+
 def load_data_into_structures(cities, rb_tree, hash_table):
     for city in cities:
-        key = f"{city.name}-{city.country}"  # Unique key, adjust as needed
+        key = f"{city.city_id}"  # Unique key, adjust as needed
         rb_tree.insert(key, city)
-        hash_table[key] = city
+        hash_table.insert(key, city);

@@ -32,30 +32,30 @@ class HashTable:
     def insert(self, key, value):
 
         # if load factor is greater than 0.75, double the capacity
-        if self.size/self.capacity > self.load_factor:
+        if self.size / self.capacity > self.load_factor:
             self.resizeAndHash()
 
-        bucketIndex = self.get_index(key); 
-    
-        # if the bucket is empty, insert the key value pair
+        bucketIndex = self.get_index(key)
+
+        # if the bucket is empty, insert the key-value pair
         if self.buckets[bucketIndex] == 0:
             self.buckets[bucketIndex] = self.Node(key, value)
             self.size += 1
+            return
 
         # if the bucket is not empty, we need to check if the key already exists
-        if (self.buckets[bucketIndex] != 0):
-            # if the key already exists, add node to the end of the linked list
-            current_node = self.buckets[bucketIndex]
-            while current_node:
-                if current_node.key == key:
-                    current_node.value = value
-                    return
-                current_node = current_node.next
-            # if bucket is not empty and key does not already exist, add new node to bucket at the end of the list
-            new_node = self.Node(key,value)
-            current_node.next = new_node;
-            self.buckets[bucketIndex] = new_node
-            self.size+=1
+        current_node = self.buckets[bucketIndex]
+        while current_node.next:  # Stop at the last node
+            if current_node.key == key:
+                current_node.value = value
+                return
+            current_node = current_node.next
+
+        # Add new node at the end of the list
+        new_node = self.Node(key, value)
+        current_node.next = new_node
+        self.size += 1
+
 
 
     def search(self, key):
