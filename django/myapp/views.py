@@ -18,15 +18,14 @@ def home(request):
     if response.status_code == 200:
         api_data = response.json()
         # Parse the API data to get a list of City objects
+        global recommendation_algorithm
         cities = parse_city_data(api_data)
         rb_tree = RedBlackTree()
         hash_table = HashTable()
         load_data_into_structures(cities, rb_tree, hash_table)
 
-        #store in session
-        request.session['cities'] = cities
-        request.session['rb_tree'] = rb_tree
-        request.session['hash_table'] = hash_table
+        # create an instance of the recommendation algorithm
+        recommendation_algorithm = RecommendationAlgorithm(request.user, cities, None, rb_tree, hash_table)
         # Pass the list of City objects to the template
         return render(request, "base.html", {'data': {'results': cities}})
     else:
@@ -38,16 +37,12 @@ def get_recommendation(request):
     size = request.GET.get('size')
     is_capital = request.GET.get('is_capital') == 'true'
 
-    # Retrieve from session or global storage
-    rb_tree = request.session.get('rb_tree')
-    hash_table = request.session.get('hash_table')
+    global recommendation_algorithm
+    if recommendation_algorithm is None:
+        return JsonResponse({'error': 'Recommendation algorithm not initialized'}, status=500)
 
-    if rb_tree is None or hash_table is None:
-        return JsonResponse({'error': 'Data structures not initialized'}, status=500)
-
-    algorithm = RecommendationAlgorithm(request.user, None, None, rb_tree, hash_table)
-    algorithm.set_criteria(continent, size, is_capital)
-    recommendations = algorithm.get_recommendations()
+    recommendation_algorithm.set_criteria(continent, size, is_capital)
+    recommendations = recommendation_algorithm.get_recommendations()
 
     if recommendations:
         return JsonResponse(recommendations)

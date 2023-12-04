@@ -208,5 +208,29 @@
     {% else %}
         <p>Error: {{ data.error }}</p>
     {% endif %}
+
+    <script>
+        document.getElementById('search-button').addEventListener('click', function() {
+            var continent = document.getElementById('continent').value;
+            var size = document.getElementById('cars').value; // Make sure this is the correct ID for size
+            var isCapital = document.querySelector('#search-section input[type="checkbox"]').checked;
+            console.log(continent, size, isCapital); // check values
+            // Make a GET request to the API
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', `/api/get_recommendation/?continent=${continent}&size=${size}&is_capital=${isCapital}`, true);
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    // Handle the response - update the page with the received data
+                    console.log(response);
+                    // Example: Update an element with ID 'results' with the response data
+                    document.getElementById('results').innerText = JSON.stringify(response, null, 2);
+                } else {
+                    console.error('No matching city found');
+                }
+            };
+            xhr.send();
+        });
+    </script>
 </body>
 </html>
