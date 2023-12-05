@@ -12,12 +12,14 @@
             background-color: #f0f0f0;
             color: #333;
         }
+
         emoji {
             font-family: Arial, sans-serif;
             color: #333;
-            font-size: 10em; 
+            font-size: 10em;
             text-align: right;
         }
+
         results {
             font-family: Arial, sans-serif;
             color: #333;
@@ -132,6 +134,7 @@
             grid-template-columns: 33.3% 33.3% 33.3%;
             padding: 0px;
         }
+
         .grid-container2 {
             display: grid;
             grid-template-columns: 50% 50%;
@@ -191,7 +194,7 @@
                         <input type="checkbox">
                         <span class="slider round"></span>
                     </label>
-                    </div>
+                </div>
                 <br>
             </div>
             <!-- Search button should run some function that runs an algorithm and returns a city's name, population, and language -->
@@ -199,14 +202,10 @@
         </section><br>
         <!-- Additional sections for suggestions and results can be dynamically loaded here -->
         <section id="results-section" style="display: none">
-            <label for="Your-Recommendation" style="font-size: 2em"><strong>Your Recommendation</strong></label><br>
             <div class="grid-container2">
                 <div class="grid-item" style=" margin-top: 1cm;">
-                    <div id ="emoji" style="text-align: right; font-size: 2em">
-                        <emoji>🇮🇳</emoji>
-                    </div>
+                    <div id="emoji" style="text-align: right; font-size: 7em"></div>
                 </div>
-
                 <div class="grid-item" style="text-align: left; margin-top: 1cm;">
                     <div id="results">
                         <results>>City: </results><br>
@@ -218,11 +217,13 @@
                     </div>
                 </div>
             </div>
-            <div id = "computationTime" style="text-align: center; margin-top: 1cm;">
-                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Red-Black Computation Time:</strong></label><br>
-                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Hash Table Computation Time:</strong></label><br>
+            <div id="computationTime" style="text-align: center; margin-top: 1cm;">
+                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Red-Black Computation
+                        Time:</strong></label><br>
+                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Hash Table Computation
+                        Time:</strong></label><br>
             </div>
-    </section>
+        </section>
     </main>
 
     <footer>
@@ -251,26 +252,26 @@
     {% endif %} -->
 
     <script>
-        document.getElementById('search-button').addEventListener('click', function() {
+        document.getElementById('search-button').addEventListener('click', function () {
             var continent = document.getElementById('continent').value;
             var size = document.getElementById('size').value;
             var isCapital = document.querySelector('#search-section input[type="checkbox"]').checked;
-    
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `/api/get_recommendation/?continent=${continent}&size=${size}&is_capital=${isCapital}`, true);
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (this.status == 200) {
                     var response = JSON.parse(this.responseText);
                     console.log(response);
-    
+
                     // Assuming you want to display the data from the Red-Black Tree
                     var rbTreeData = response.rb_tree;
-    
+
                     if (rbTreeData) {
                         // Update the page with the received data
                         document.getElementById('emoji').innerHTML = rbTreeData.Flag;
-                        document.getElementById('results').innerHTML = 
-                        `City: ${rbTreeData.City}<br>
+                        document.getElementById('results').innerHTML =
+                            `City: ${rbTreeData.City}<br>
                         Country: ${rbTreeData.Country}<br>
                         Continent: ${rbTreeData.Continent}<br>
                         City Population: ${rbTreeData.Population}<br>
@@ -279,7 +280,7 @@
 
                         // add computation time to labels
                         document.getElementById('computationTime').innerHTML =
-                        `Red-Black Computation Time: ${response.rb_tree.time}<br>
+                            `Red-Black Computation Time: ${response.rb_tree.time}<br>
                         Hash Table Computation Time: ${response.hash_table.time}<br>`;
 
                         // show results section
@@ -293,6 +294,7 @@
             };
             xhr.send();
         });
-    </script>    
+    </script>
 </body>
+
 </html>
