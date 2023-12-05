@@ -43,15 +43,38 @@ class RecommendationAlgorithm():
             hash_table_result = self.hash_table.search(city_key)
             hash_table_time = (time.perf_counter() - start_time) * 1000  # Convert to milliseconds
 
+            # change is capital to yes or no
+            if rb_tree_result and hash_table_result:
+                if rb_tree_result.value.is_capital:
+                    rb_tree_result.value.is_capital = "Yes"
+                else:
+                    rb_tree_result.value.is_capital = "No"
+                if hash_table_result.is_capital:
+                    hash_table_result.is_capital = "Yes"
+                else:
+                    hash_table_result.is_capital = "No"
+                    
             if rb_tree_result and hash_table_result:
                 return {
                     'rb_tree': {
                     'time': f"{rb_tree_time:.6f} ms",
-                    'result': rb_tree_result.value.name
+                    'City': rb_tree_result.value.name,
+                    'Country': rb_tree_result.value.country,
+                    'Continent': rb_tree_result.value.continent,
+                    'Population': rb_tree_result.value.population,
+                    'Size': rb_tree_result.value.size,
+                    'Flag': rb_tree_result.value.flag,
+                    'is_capital': rb_tree_result.value.is_capital
                     },
                     'hash_table': {
                         'time': f"{hash_table_time:.6f} ms",
-                        'result': hash_table_result.name
+                        'City' : hash_table_result.name,
+                        'Country': hash_table_result.country,
+                        'Continent': hash_table_result.continent,
+                        'Population': hash_table_result.population,
+                        'Size': hash_table_result.size,
+                        'Flag': hash_table_result.flag,
+                        'is_capital': hash_table_result.is_capital
                     }
                 }
         else:

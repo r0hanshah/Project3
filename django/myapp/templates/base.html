@@ -198,25 +198,31 @@
             <button id="search-button" style="margin-top: 10px;">Search</button>
         </section><br>
         <!-- Additional sections for suggestions and results can be dynamically loaded here -->
-        <section id="search-section">
-            <label for="search-input" style="font-size: 2em"><strong>Your Recommendation</strong></label><br>
+        <section id="results-section" style="display: none">
+            <label for="Your-Recommendation" style="font-size: 2em"><strong>Your Recommendation</strong></label><br>
             <div class="grid-container2">
-                <div class="grid-item">
-                    <div id ="emoji" style="text-align: right">
+                <div class="grid-item" style=" margin-top: 1cm;">
+                    <div id ="emoji" style="text-align: right; font-size: 2em">
                         <emoji>🇮🇳</emoji>
                     </div>
                 </div>
 
                 <div class="grid-item" style="text-align: left; margin-top: 1cm;">
-                    <results>City: </results><br>
-                    <results>Country: </results><br>
-                    <results>Continent </results><br>
-                    <results>City Population: </results><br>
-                    <results>City Size: </results><br>
-                    <results>Is Capital?: </results><br>                   
+                    <div id="results">
+                        <results>>City: </results><br>
+                        <results>Country: </results><br>
+                        <results>Continent: </results><br>
+                        <results>City Population: </results><br>
+                        <results>City Size: </results><br>
+                        <results>Is Capital?: </results><br>
+                    </div>
                 </div>
             </div>
-        </section>
+            <div id = "computationTime" style="text-align: center; margin-top: 1cm;">
+                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Red-Black Computation Time:</strong></label><br>
+                <label for="search-input" style="text-align: center; font-size: 1em"><strong>Hash Table Computation Time:</strong></label><br>
+            </div>
+    </section>
     </main>
 
     <footer>
@@ -247,25 +253,46 @@
     <script>
         document.getElementById('search-button').addEventListener('click', function() {
             var continent = document.getElementById('continent').value;
-            var size = document.getElementById('size').value; // Make sure this is the correct ID for size
+            var size = document.getElementById('size').value;
             var isCapital = document.querySelector('#search-section input[type="checkbox"]').checked;
-            console.log(continent, size, isCapital); // check values
-            // Make a GET request to the API
+    
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `/api/get_recommendation/?continent=${continent}&size=${size}&is_capital=${isCapital}`, true);
             xhr.onload = function() {
                 if (this.status == 200) {
                     var response = JSON.parse(this.responseText);
-                    // Handle the response - update the page with the received data
                     console.log(response);
-                    // Example: Update an element with ID 'results' with the response data
-                    //document.getElementById('results').innerText = JSON.stringify(response, null, 2);
+    
+                    // Assuming you want to display the data from the Red-Black Tree
+                    var rbTreeData = response.rb_tree;
+    
+                    if (rbTreeData) {
+                        // Update the page with the received data
+                        document.getElementById('emoji').innerHTML = rbTreeData.Flag;
+                        document.getElementById('results').innerHTML = 
+                        `City: ${rbTreeData.City}<br>
+                        Country: ${rbTreeData.Country}<br>
+                        Continent: ${rbTreeData.Continent}<br>
+                        City Population: ${rbTreeData.Population}<br>
+                        City Size: ${rbTreeData.Size}<br>
+                        Is Capital?: ${rbTreeData.is_capital}<br>`;
+
+                        // add computation time to labels
+                        document.getElementById('computationTime').innerHTML =
+                        `Red-Black Computation Time: ${response.rb_tree.time}<br>
+                        Hash Table Computation Time: ${response.hash_table.time}<br>`;
+
+                        // show results section
+                        document.getElementById('results-section').style.display = 'block';
+                    } else {
+                        document.getElementById('results').innerText = 'No matching city found';
+                    }
                 } else {
-                    console.error('No matching city found');
+                    console.error('Error in fetching data');
                 }
             };
             xhr.send();
         });
-    </script>
+    </script>    
 </body>
 </html>

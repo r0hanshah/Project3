@@ -10,7 +10,7 @@ from .recommendation_algorithm import RecommendationAlgorithm
 
 
 def home(request):
-    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=1000&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
+    url = 'https://parseapi.back4app.com/classes/Continentscountriescities_City?limit=10000&include=country,country.continent&keys=name,country,country.name,country.emoji,country.capital,country.continent,country.continent.name,population,cityId'
     headers = {
         'X-Parse-Application-Id': 'UYc71G7r391fHhOVopWNjVyUcSAuI3seeCzw0Kn5',
         'X-Parse-REST-API-Key': 'mDIkA4mPqLMhR9oyeabWn323MOcXpdAUAHh2cuNi'
