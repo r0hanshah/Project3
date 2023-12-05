@@ -127,9 +127,14 @@
             border-radius: 50%;
         }
 
-        .grid-container {
+        .grid-container3 {
             display: grid;
-            grid-template-columns: auto auto auto;
+            grid-template-columns: 33.3% 33.3% 33.3%;
+            padding: 0px;
+        }
+        .grid-container2 {
+            display: grid;
+            grid-template-columns: 50% 50%;
             padding: 0px;
         }
 
@@ -149,9 +154,9 @@
 
     <main>
         <section id="search-section">
-            <label for="search-input"><strong>Enter your travel preferences:</strong></label><br>
+            <label for="search-input" style="font-size: 2em"><strong>Enter your travel preferences:</strong></label><br>
             <!--<input type="text" id="search-input" placeholder="Country, Population, Language, etc." style="padding: 10px; margin-top: 10px;">-->
-            <div class="grid-container">
+            <div class="grid-container3">
                 <div class="grid-item">
                     <!-- Insert link to CSS framework and custom styles here -->
                     <label for="search-input">Select Continent</label><br>
@@ -194,24 +199,23 @@
         </section><br>
         <!-- Additional sections for suggestions and results can be dynamically loaded here -->
         <section id="search-section">
-            <div class="grid-container">
+            <label for="search-input" style="font-size: 2em"><strong>Your Recommendation</strong></label><br>
+            <div class="grid-container2">
                 <div class="grid-item">
-                    <div id ="emoji">
+                    <div id ="emoji" style="text-align: right">
                         <emoji>🇮🇳</emoji>
                     </div>
                 </div>
 
-                <div class="grid-item">
-                    <results> City Recommendation: </results><br>
+                <div class="grid-item" style="text-align: left; margin-top: 1cm;">
+                    <results>City: </results><br>
                     <results>Country: </results><br>
                     <results>Continent </results><br>
                     <results>City Population: </results><br>
                     <results>City Size: </results><br>
-                    <results>Is City Capital?: </results><br>                   
-
+                    <results>Is Capital?: </results><br>                   
                 </div>
             </div>
-
         </section>
     </main>
 
