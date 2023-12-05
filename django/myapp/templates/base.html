@@ -257,6 +257,11 @@
             var size = document.getElementById('size').value;
             var isCapital = document.querySelector('#search-section input[type="checkbox"]').checked;
 
+            //print values to console
+            console.log(continent);
+            console.log(size);
+            console.log(isCapital);
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', `/api/get_recommendation/?continent=${continent}&size=${size}&is_capital=${isCapital}`, true);
             xhr.onload = function () {

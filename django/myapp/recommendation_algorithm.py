@@ -43,17 +43,6 @@ class RecommendationAlgorithm():
             hash_table_result = self.hash_table.search(city_key)
             hash_table_time = (time.perf_counter() - start_time) * 1000  # Convert to milliseconds
 
-            # change is capital to yes or no
-            if rb_tree_result and hash_table_result:
-                if rb_tree_result.value.is_capital:
-                    rb_tree_result.value.is_capital = "Yes"
-                else:
-                    rb_tree_result.value.is_capital = "No"
-                if hash_table_result.is_capital:
-                    hash_table_result.is_capital = "Yes"
-                else:
-                    hash_table_result.is_capital = "No"
-                    
             if rb_tree_result and hash_table_result:
                 return {
                     'rb_tree': {
